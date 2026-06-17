@@ -1,0 +1,78 @@
+/*
+ * @fileoverview Scoped CSS for the LoginPage component.
+ * These styles are specific to the login form layout and components.
+ * General form styles like .form-group, .form-input, .error-message, .login-button
+ * are intended to be defined in global stylesheets (e.g., src/index.css) for consistency.
+ */
+
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* Adjust based on header/footer height */
+  padding: 20px;
+  background-color: var(--color-background-soft); /* Using existing color variable */
+}
+
+.login-page-container form {
+  background-color: var(--color-background);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-page-container h2 {
+  font-size: 2em;
+  color: var(--color-heading);
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .form-input {
+  padding-right: 40px; /* Make space for the toggle button */
+  width: 100%;
+}
+
+.toggle-password-visibility {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text); /* Use existing text color */
+  transition: color 0.2s;
+}
+
+.toggle-password-visibility:hover {
+  color: var(--color-accent); /* Use an accent color on hover */
+}
+
+.toggle-password-visibility svg {
+  width: 20px;
+  height: 20px;
+}
+
+.api-error-message {
+  color: var(--color-danger); /* Assuming a danger/error color exists */
+  text-align: center;
+  margin-top: -10px; /* Adjust spacing */
+  font-size: 0.9em;
+  background-color: var(--color-danger-bg); /* Light background for error, if defined */
+  padding: 8px;
+  border-radius: 4px;
+}

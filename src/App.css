@@ -1,160 +1,29 @@
-.page {
-  min-height: 100svh;
-  color: #111827;
-  background:
-    radial-gradient(circle at 10% 0%, #ffd8a8 0%, #ffd8a800 34%),
-    radial-gradient(circle at 92% 12%, #bae6fd 0%, #bae6fd00 30%),
-    #f4f1ea;
+/*
+ * @fileoverview Application-wide CSS specific to the main App component, if any.
+ * This file is intentionally kept minimal to adhere to the principle of
+ * reusing styles from `index.css` and scoped component styles.
+ * Existing `App.css` content related to default Vite/React template (e.g., logo, card)
+ * is removed or moved to `index.css` for broader utility if applicable.
+ * For this project, general layout and form styles are in `index.css`.
+ */
+
+#root {
+  /* No specific styles here for now, handled by AppLayout and global index.css */
 }
 
-.topbar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem 1.25rem 0.5rem;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
 }
-
-.login-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid #1f2937;
-  border-radius: 999px;
-  background: #ffffffcc;
-  color: #0f172a;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  cursor: default;
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
-
-.login-icon svg {
-  width: 1.2rem;
-  height: 1.2rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.content {
-  width: min(1100px, calc(100% - 2rem));
-  margin: 0 auto;
-}
-
-.hero {
-  width: min(1100px, calc(100% - 2rem));
-  margin: 0 auto;
-  padding: 1.5rem 0 3rem;
-}
-
-.eyebrow {
-  margin: 0;
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  font-weight: 700;
-}
-
-.hero h1 {
-  margin: 0.75rem 0 0;
-  max-width: 14ch;
-  font-size: clamp(2rem, 5vw, 4.7rem);
-  line-height: 0.98;
-  font-weight: 800;
-}
-
-.hero-copy {
-  max-width: 62ch;
-  margin: 1.25rem 0 0;
-  font-size: clamp(1rem, 1.8vw, 1.22rem);
-  line-height: 1.55;
-  color: #374151;
-}
-
-.section-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-bottom: 2.25rem;
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 .card {
-  background: #ffffffd9;
-  border: 1px solid #11182722;
-  border-radius: 1rem;
-  padding: 1.2rem;
-  backdrop-filter: blur(2px);
-}
-
-.card h2 {
-  margin: 0;
-  font-size: 1.1rem;
-  line-height: 1.2;
-}
-
-.card p {
-  margin: 0.7rem 0 0;
-  color: #4b5563;
-  line-height: 1.5;
-}
-
-.clients {
-  border-top: 1px solid #11182722;
-  border-bottom: 1px solid #11182722;
-  padding: 1rem 0;
-  margin-bottom: 2.25rem;
-}
-
-.label {
-  margin: 0;
-  color: #4b5563;
-  font-size: 0.85rem;
-}
-
-.client-row {
-  margin-top: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.client-row span {
-  display: inline-block;
-  background: #111827;
-  color: #f9fafb;
-  border-radius: 999px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.77rem;
-  letter-spacing: 0.05em;
-}
-
-.cta {
-  padding-bottom: 3rem;
-}
-
-.cta h2 {
-  margin: 0;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  line-height: 1.1;
-}
-
-.cta p {
-  max-width: 65ch;
-  margin: 0.85rem 0 0;
-  color: #4b5563;
-}
-
-@media (max-width: 860px) {
-  .section-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    padding-bottom: 2rem;
-  }
-
-  .clients,
-  .cta {
-    margin-bottom: 1.5rem;
-  }
+  padding: 2em;
 }
