@@ -1,160 +1,373 @@
-.page {
-  min-height: 100svh;
-  color: #111827;
-  background:
-    radial-gradient(circle at 10% 0%, #ffd8a8 0%, #ffd8a800 34%),
-    radial-gradient(circle at 92% 12%, #bae6fd 0%, #bae6fd00 30%),
-    #f4f1ea;
+/* ==========================================================================
+   COMPONENT STYLES — Apple.com-Inspired Visual System
+   SPEC-VISUAL-001 | src/App.css
+   BEM naming convention throughout (NFR-009)
+   Zero hard-coded hex values — all colours via CSS custom properties (NFR-008)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. LAYOUT PRIMITIVES
+   ========================================================================== */
+
+/* Content wrapper — FR-019, FR-020 */
+.content-wrapper {
+  max-width: 1200px;
+  margin-inline: auto;
+  /* Desktop padding-inline: 40px = --space-6 (token table authoritative — GAP-001) */
+  padding-inline: var(--space-6);
 }
 
-.topbar {
+/* Generic section — FR-021 */
+.section {
+  padding-block: var(--space-10); /* 80px desktop */
+  background-color: var(--color-bg-secondary);
+}
+
+/* ==========================================================================
+   2. NAVIGATION BAR (FR-023 – FR-027)
+   ========================================================================== */
+
+.nav-bar {
+  position: sticky;
+  top: 0;
+  height: 44px;                          /* FR-024 */
+  background-color: rgba(255, 255, 255, 0.72);  /* FR-025 */
+  backdrop-filter: saturate(180%) blur(20px);    /* FR-025 */
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1000;
+}
+
+/* @supports fallback for browsers without backdrop-filter (NFR-007) */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-bar {
+    /* Graceful degradation: opaque background without blur */
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Dark mode nav bar overrides */
+@media (prefers-color-scheme: dark) {
+  .nav-bar {
+    background-color: rgba(0, 0, 0, 0.72);
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .nav-bar {
+      background-color: rgba(0, 0, 0, 0.95);
+    }
+  }
+}
+
+.nav-bar__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  height: 100%;
   display: flex;
-  justify-content: flex-end;
-  padding: 1rem 1.25rem 0.5rem;
-}
-
-.login-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid #1f2937;
-  border-radius: 999px;
-  background: #ffffffcc;
-  color: #0f172a;
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.nav-bar__logo {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  letter-spacing: -0.002em;
+  transition: opacity 200ms ease;
+}
+
+.nav-bar__logo:hover {
+  opacity: 0.8;
+}
+
+.nav-bar__logo:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.nav-bar__links {
+  display: flex;
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
   padding: 0;
-  cursor: default;
 }
 
-.login-icon svg {
-  width: 1.2rem;
-  height: 1.2rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.nav-bar__link {
+  font-size: var(--font-size-callout);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 200ms ease; /* FR-027 */
 }
 
-.content {
-  width: min(1100px, calc(100% - 2rem));
-  margin: 0 auto;
+.nav-bar__link:hover {
+  color: var(--color-text-primary);
 }
+
+.nav-bar__link:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   3. HERO SECTION (FR-028 – FR-031)
+   ========================================================================== */
 
 .hero {
-  width: min(1100px, calc(100% - 2rem));
-  margin: 0 auto;
-  padding: 1.5rem 0 3rem;
+  background-color: var(--color-bg-primary); /* FR-030 */
+  text-align: center;                        /* FR-028 */
+  padding-top: 120px;                        /* FR-031 */
+  padding-bottom: 120px;                     /* FR-031 */
 }
 
-.eyebrow {
-  margin: 0;
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  font-weight: 700;
+.hero__inner {
+  max-width: 800px;
+  margin-inline: auto;
+  padding-inline: var(--space-5); /* 32px */
 }
 
-.hero h1 {
-  margin: 0.75rem 0 0;
-  max-width: 14ch;
-  font-size: clamp(2rem, 5vw, 4.7rem);
-  line-height: 0.98;
-  font-weight: 800;
+.hero__subtitle {
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  line-height: 1.381;
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.001em;
 }
 
-.hero-copy {
-  max-width: 62ch;
-  margin: 1.25rem 0 0;
-  font-size: clamp(1rem, 1.8vw, 1.22rem);
-  line-height: 1.55;
-  color: #374151;
+.hero__actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.section-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-bottom: 2.25rem;
+/* ==========================================================================
+   4. TYPOGRAPHY UTILITIES (FR-008, FR-009)
+   ========================================================================== */
+
+/* Display — largest heading (FR-008) */
+.display {
+  font-size: var(--font-size-display);     /* clamp(48px, 5vw, 80px) */
+  font-weight: var(--font-weight-bold);    /* 700 */
+  letter-spacing: -0.003em;
+  color: var(--color-text-primary);
+  line-height: 1.05;
+  margin-bottom: var(--space-4);
 }
 
-.card {
-  background: #ffffffd9;
-  border: 1px solid #11182722;
-  border-radius: 1rem;
-  padding: 1.2rem;
-  backdrop-filter: blur(2px);
+/* Headline — section headers (FR-009) */
+.headline {
+  font-size: var(--font-size-headline);    /* clamp(28px, 3vw, 48px) */
+  font-weight: var(--font-weight-semibold); /* 600 */
+  letter-spacing: -0.002em;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  margin-bottom: var(--space-5);
 }
 
-.card h2 {
-  margin: 0;
-  font-size: 1.1rem;
+/* Title-1 — card/sub-section headings */
+.title-1 {
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.002em;
+  color: var(--color-text-primary);
   line-height: 1.2;
 }
 
-.card p {
-  margin: 0.7rem 0 0;
-  color: #4b5563;
-  line-height: 1.5;
+/* Title-2 */
+.title-2 {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.001em;
+  color: var(--color-text-primary);
+  line-height: 1.25;
 }
 
-.clients {
-  border-top: 1px solid #11182722;
-  border-bottom: 1px solid #11182722;
-  padding: 1rem 0;
-  margin-bottom: 2.25rem;
+/* ==========================================================================
+   5. BUTTONS (FR-032 – FR-035)
+   ========================================================================== */
+
+/* Shared button reset */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-family-system);
+  font-size: 17px;                  /* FR-032 — fixed per spec */
+  line-height: 1;
+  border: none;                     /* FR-033 */
+  white-space: nowrap;
 }
 
-.label {
-  margin: 0;
-  color: #4b5563;
-  font-size: 0.85rem;
+/* Primary button (FR-032) */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-always-white);  /* Uses token to avoid raw hex (GAP-004) */
+  border-radius: var(--radius-pill); /* 980px */
+  padding: 12px 22px;
+  font-weight: var(--font-weight-regular);
+  transition: background-color 250ms ease; /* FR-034 */
 }
 
-.client-row {
-  margin-top: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.btn-primary:hover {
+  background-color: var(--color-accent-hover); /* FR-034: #0077ed */
 }
 
-.client-row span {
-  display: inline-block;
-  background: #111827;
-  color: #f9fafb;
-  border-radius: 999px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.77rem;
-  letter-spacing: 0.05em;
+.btn-primary:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.cta {
-  padding-bottom: 3rem;
+/* Secondary button (FR-035) */
+.btn-secondary {
+  background-color: transparent;    /* FR-035: no background */
+  color: var(--color-accent);       /* FR-035 */
+  border-radius: var(--radius-pill);
+  padding: 12px 22px;
+  font-weight: var(--font-weight-regular);
+  transition: color 200ms ease;
 }
 
-.cta h2 {
-  margin: 0;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  line-height: 1.1;
+.btn-secondary:hover {
+  color: var(--color-accent-hover);
 }
 
-.cta p {
-  max-width: 65ch;
-  margin: 0.85rem 0 0;
-  color: #4b5563;
+.btn-secondary:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-@media (max-width: 860px) {
-  .section-grid {
-    grid-template-columns: 1fr;
+/* ==========================================================================
+   6. CARD GRID (FR-039)
+   ========================================================================== */
+
+/* Card grid container — FR-039 */
+/* Note on FR-039: gap uses --space-4 (24px per token table). FR-039 text
+   says "32px" but the authoritative token table defines --space-4 = 24px.
+   24px is used per GAP-002 resolution in REFINEMENT-VISUAL-001. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4); /* 24px per token table — GAP-002 */
+}
+
+/* ==========================================================================
+   7. CARD COMPONENT (FR-036 – FR-038)
+   ========================================================================== */
+
+/* Card base — FR-036 */
+/* Note: card padding uses --space-6 (40px). FR-036 references var(--space-5)
+   for 40px, but token table defines --space-5 = 32px, --space-6 = 40px.
+   --space-6 is used per GAP-001/MS-006 resolution. */
+.card {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);   /* 18px — FR-036 */
+  padding: var(--space-6);           /* 40px — FR-036, using --space-6 per token table */
+  box-shadow: none;                  /* FR-037 */
+  transition: box-shadow 300ms ease, transform 300ms ease; /* FR-038 */
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover); /* 0 4px 20px rgba(0,0,0,0.08) — FR-038 */
+  transform: translateY(-2px);         /* FR-038 */
+}
+
+/* Card title */
+.card__title {
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.002em;
+  margin-bottom: var(--space-2);
+  line-height: 1.2;
+}
+
+/* Card body */
+.card__body {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: 1.47059;
+}
+
+/* ==========================================================================
+   8. FOOTER (FR-040 – FR-042)
+   ========================================================================== */
+
+.footer {
+  background-color: var(--color-bg-secondary); /* FR-040 */
+  border-top: 1px solid var(--color-border);   /* FR-042 */
+  padding-block: var(--space-7);               /* 48px */
+}
+
+.footer__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.footer__text {
+  font-size: var(--font-size-caption);    /* 12px — FR-041 */
+  color: var(--color-text-secondary);     /* #6e6e73 — FR-041 */
+  line-height: 1.33333;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE OVERRIDES (FR-020, FR-021, FR-022)
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  /* Content wrapper — FR-020: 16px = --space-3 on mobile */
+  .content-wrapper {
+    padding-inline: var(--space-3); /* 16px */
   }
 
+  /* Sections — FR-021: 48px = --space-7 on mobile */
+  .section {
+    padding-block: var(--space-7); /* 48px */
+  }
+
+  /* Hero — FR-031 mobile override (GAP-007: hero is a special case) */
   .hero {
-    padding-bottom: 2rem;
+    padding-top: var(--space-8);   /* 56px */
+    padding-bottom: var(--space-8);
   }
 
-  .clients,
-  .cta {
-    margin-bottom: 1.5rem;
+  .hero__inner {
+    padding-inline: var(--space-3);
+  }
+
+  /* Hide nav links on smallest viewports to prevent overflow (MS-002) */
+  .nav-bar__links {
+    display: none;
+  }
+
+  /* Footer mobile padding */
+  .footer__inner {
+    padding-inline: var(--space-3);
+  }
+
+  /* Nav inner mobile padding */
+  .nav-bar__inner {
+    padding-inline: var(--space-3);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Tablet: show nav links, reduced gap */
+  .nav-bar__links {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .content-wrapper {
+    padding-inline: var(--space-5); /* 32px */
   }
 }

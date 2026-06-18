@@ -1,16 +1,150 @@
-* {
+/* ==========================================================================
+   DESIGN TOKEN REGISTRY — Apple.com-Inspired Visual System
+   SPEC-VISUAL-001 | src/index.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Layer 0: Box-sizing & Universal Reset
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html,
-body,
-#root {
-  margin: 0;
-  min-height: 100%;
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Layer 1: Design Token Registry (:root)
+   FR-001, FR-002, FR-003, FR-004
+   -------------------------------------------------------------------------- */
+:root {
+  /* ── Colour Tokens (FR-002) ─────────────────────────────────────────────── */
+
+  /* Backgrounds */
+  --color-bg-primary:     #ffffff;
+  --color-bg-secondary:   #f5f5f7;
+  --color-bg-tertiary:    #e8e8ed;
+  --color-surface:        #ffffff;
+
+  /* Text */
+  --color-text-primary:   #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-tertiary:  #86868b;
+
+  /* Accent / Interactive */
+  --color-accent:         #0071e3;
+  --color-accent-hover:   #0077ed;
+
+  /* Border / Divider */
+  --color-border:         #d2d2d7;
+
+  /* Always-white constant for button text (GAP-004 resolution) */
+  --color-always-white:   #ffffff;
+
+  /* Shadow tokens (GAP-005 resolution) */
+  --shadow-card-hover:    0 4px 20px rgba(0, 0, 0, 0.08);
+
+  /* ── Typography Tokens (FR-003) ─────────────────────────────────────────── */
+
+  /* Font family — system stack matching Apple (FR-006) */
+  --font-family-system: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+
+  /* Font sizes (FR-008, FR-009) */
+  --font-size-display:  clamp(48px, 5vw, 80px);
+  --font-size-headline: clamp(28px, 3vw, 48px);
+  --font-size-title-1:  clamp(22px, 2.5vw, 32px);
+  --font-size-title-2:  clamp(18px, 2vw, 24px);
+  --font-size-body:     17px;
+  --font-size-callout:  15px;
+  --font-size-caption:  12px;
+
+  /* Font weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ── Spacing Tokens — 8px base grid (FR-004) ────────────────────────────── */
+  /* Note on FR-020: --space-6 (40px) is used for desktop padding-inline.
+     FR-020 text references "var(--space-5)" for 40px, but the token table
+     defines --space-5 = 32px and --space-6 = 40px. Token table is authoritative.
+     See ARCH §4.3 and GAP-001/GAP-008 in REFINEMENT-VISUAL-001. */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  16px;
+  --space-4:  24px;
+  --space-5:  32px;
+  --space-6:  40px;
+  --space-7:  48px;
+  --space-8:  56px;
+  --space-9:  64px;
+  --space-10: 80px;
+  --space-11: 88px;
+  --space-12: 96px;
+
+  /* ── Border Radius Tokens ───────────────────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-pill: 980px;
+}
+
+/* --------------------------------------------------------------------------
+   Layer 2: Dark Mode Override (FR-005, FR-017, FR-018)
+   -------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary:     #000000;
+    --color-bg-secondary:   #1c1c1e;
+    --color-bg-tertiary:    #2c2c2e;
+    --color-surface:        #1c1c1e;
+    --color-text-primary:   #f5f5f7;
+    --color-text-secondary: #a1a1a6;
+    --color-text-tertiary:  #6e6e73;
+    --color-accent:         #2997ff;
+    --color-accent-hover:   #47a7ff;
+    --color-border:         #3a3a3c;
+    --shadow-card-hover:    0 4px 20px rgba(0, 0, 0, 0.32);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layer 3: Reduced Motion Safety (NFR-013)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layer 4: Body Base Styles (FR-007, FR-006)
+   -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Space Grotesk', 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
-  text-rendering: optimizeLegibility;
+  font-family: var(--font-family-system);
+  font-size: var(--font-size-body);     /* 17px — FR-007 */
+  line-height: 1.47059;                 /* ~25px at 17px — FR-007 */
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
